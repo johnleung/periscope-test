@@ -250,9 +250,25 @@
         The broadcast you specified is not live; please try another.
       <% }else{ %>
         <div style="display:none;">
+
+         <script src="http://dailymotion.github.io/hls.js/dist/hls.js"></script>
+
           <video id="sourcevid" autoplay="true" loop="true" width="1000" height="1000">
             <source src="<%= streamURI %>" type="application/x-mpegURL"/>
           </video>
+          <script>
+            if(Hls.isSupported() && navigator.userAgent.indexOf('Chrome')>-1) {
+              var video = document.getElementById('sourcevid');
+              var hls = new Hls();
+              hls.loadSource('<%= streamURI %>');
+              hls.attachMedia(video);
+              hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                video.play();
+            });
+           }
+          </script>
+
+
           <canvas id="sourcecopy" width="1000" height="1000"></canvas>
         </div>
         <canvas id="output" width="1000" height="1000" onmousedown="dropBomb(event, this)" style="border: solid 5px #666;"></canvas>

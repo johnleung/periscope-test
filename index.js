@@ -3,7 +3,7 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('port', (process.env.PORT || 5000));
 
-app.get('/hello', function(req, res) {
+app.get('/', function(req, res) {
 	var Horseman = require('node-horseman');
 	var horseman = new Horseman();
 
@@ -37,6 +37,7 @@ app.get('/hello', function(req, res) {
 	}
 
 });
+
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
